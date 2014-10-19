@@ -34,12 +34,13 @@ if [ "$?" == 0 ]
 		sudo chown root:root $deamon_path
 		sudo chmod +x $deamon_path
 		echo "permissions set"
-		read -p "Reboot Now? [y/n]" do_reboot
-		case $yn in
-			[Yy]* ) sudo reboot;
-			* ) echo "Done. Changes will take effect after reboot."
-		esac
-#		
+		while true; do
+			read -p "Reboot now? [y/N]" yn
+			case $yn in
+			[Yy]* ) sudo reboot;;
+			* ) exit ;;
+			esac
+		done
 
 	else
 		echo "no such gpio: $listen_at_pin"
