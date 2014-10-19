@@ -21,8 +21,8 @@ You need:
 - R2: 1k resistor
 - cables
 
-Circuit:
---------
+Wiring
+------
 	
 	 +---| R1 |----+
 	 |             |
