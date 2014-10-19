@@ -62,11 +62,11 @@ while True:
 	# detect shutdown
 	if input == 0 and duration >= wait_shutdown and old_input != -1:
 		shutdown()
-		exit()
+		break
 
 	# detect reboot
 	if old_input != input:
 		if old_input == 0 and input == 1 and duration >= wait_reboot: # release button
 			reboot()
-			exit()
+			break
 		old_input = input
