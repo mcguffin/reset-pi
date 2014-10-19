@@ -13,12 +13,12 @@ def now():
 
 def shutdown():
 	print "Shutdown signal recieved from switch."
-# 	os.popen("sudo shutdown -h now");
+ 	os.popen("sudo shutdown -h now");
 
 def reboot():
 	# shutdown -h now
 	print "Reboot signal recieved from switch."
-# 	os.popen("sudo reboot");
+ 	os.popen("sudo reboot");
 
 
 # set defaults
@@ -48,25 +48,26 @@ print "Shutdown: Keep button pressed for at least %d seconds" % wait_shutdown
 
 # used during runtime
 old_input = -1
-started = now()
-duration = 0
+seconds_since_press = 0
+button_pressed = 0
 
 while True:
 	input = GPIO.input( listen_at_pin )
 
-	if old_input != input:
-		started = now()
-
-	duration = now() - started
-
-	# detect shutdown
-	if input == 0 and duration >= wait_shutdown and old_input != -1:
-		shutdown()
-		break
-
 	# detect reboot
 	if old_input != input:
-		if old_input == 0 and input == 1 and duration >= wait_reboot: # release button
+		started = now()
+#		print old_input,input,seconds_since_press
+		if old_input == 0 and input == 1 and seconds_since_press >= wait_reboot: # release button
 			reboot()
 			break
+		elif old_input == 1 and input == 0: # press button
+			button_pressed = now()
 		old_input = input
+
+	seconds_since_press = now() - button_pressed
+
+	# detect shutdown
+	if input == 0 and seconds_since_press >= wait_shutdown:
+		shutdown()
+		break
