@@ -1,0 +1,8 @@
+# we will listen at this pin for a reset signal
+listen_at_pin = 31
+
+# seconds to press button for a reboot
+wait_reboot = 2
+
+# seconds to press button for a shutdown
+wait_shutdown = 5
