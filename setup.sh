@@ -1,6 +1,6 @@
 #! /bin/sh
 
-gpios=(0 1 2 3 4 7 8 9 10 11 14 15 17 1822 23 24 25  28 29 30 31)
+gpios=(0 1 2 3 4 7 8 9 10 11 14 15 17 1822 23 24 25  28 29 30 31);
 
 wait_reboot=2
 wait_shutdown=5
@@ -12,7 +12,7 @@ containsElement () {
 }
 
 config_path=/etc/resetpi.conf
-deamon_path=/etc/init.d/resetd.py
+deamon_path=/etc/resetpi.py
 
 # promt for pin number
 read -p "Select GPIO [0 1 2 3 4 7 8 9 10 11 14 15 17 18 22 23 24 25 28 29 30 31]: " listen_at_pin
@@ -29,11 +29,16 @@ if [ "$?" == 0 ]
 		
 		
 		sudo cp ./resetd.py $deamon_path
-		echo "listener copied to $deamon_path"
-
+		echo "listener script copied to $deamon_path"
+		
 		sudo chown root:root $deamon_path
 		sudo chmod +x $deamon_path
 		echo "permissions set"
+		
+		awk '/exit 0/{print "$deamon_path"}1' /etc/rc.local > /etc/rc.local
+		
+		
+		
 		while true; do
 			read -p "Reboot now? [y/N]" yn
 			case $yn in
