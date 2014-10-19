@@ -40,7 +40,7 @@ if [ "$?" == 0 ]
 		then
 			echo "already runs at startup..."
 		else
-			sudo sed -i -e '$i \/etc/resetpi.py \n' /etc/rc.local
+			sudo sed -i -e '$i \/etc/resetpi.py &\n' /etc/rc.local
 			echo "Config updated"
 		fi
 			
@@ -48,7 +48,7 @@ if [ "$?" == 0 ]
 		while true; do
 			read -p "Reboot now? [y/N]" yn
 			case $yn in
-			[Yy]* ) sudo reboot;;
+			[Yy]* ) sudo reboot;exit;;
 			* ) exit ;;
 			esac
 		done

@@ -55,8 +55,6 @@ duration = 0
 
 while True:
 	input = GPIO.input( listen_at_pin )
-	if old_input == -1:
-		continue;
 	if old_input != input:
 		started = now()
 		if old_input == 0 and input == 1 and duration >= wait_reboot: # release button
