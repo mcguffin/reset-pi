@@ -28,7 +28,7 @@ if [ "$?" == 0 ]
 		echo "configuration saved in '$config_path'"
 		
 		
-		sudo cp ./resetd.py $deamon_path
+		sudo cp ./install/resetpi.py $deamon_path
 		echo "listener script copied to $deamon_path"
 		
 		sudo chown root:root $deamon_path
