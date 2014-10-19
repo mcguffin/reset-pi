@@ -11,6 +11,7 @@ Installation
 	cd reset-pi
 	sudo ./setup.sh
 
+
 Hardware
 --------
 

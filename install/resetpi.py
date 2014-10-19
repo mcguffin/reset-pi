@@ -53,16 +53,19 @@ duration = 0
 
 while True:
 	input = GPIO.input( listen_at_pin )
+
+	if old_input != input:
+		started = now()
+
 	duration = now() - started
 
 	# detect shutdown
-	if input == 0 and duration >= wait_shutdown:
+	if input == 0 and duration >= wait_shutdown and old_input != -1:
 		shutdown()
 		exit()
 
 	# detect reboot
 	if old_input != input:
-		started = now()
 		if old_input == 0 and input == 1 and duration >= wait_reboot: # release button
 			reboot()
 			exit()
