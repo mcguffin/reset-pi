@@ -12,7 +12,7 @@ containsElement () {
 }
 
 config_path=/etc/resetpi.conf
-deamon_path=/etc/resetpi.py
+daemon_path=/etc/resetpi.py
 
 # promt for pin number
 read -p "Select GPIO [0 1 2 3 4 7 8 9 10 11 14 15 17 18 22 23 24 25 28 29 30 31]: " listen_at_pin
@@ -28,17 +28,23 @@ if [ "$?" == 0 ]
 		echo "configuration saved in '$config_path'"
 		
 		
-		sudo cp ./install/resetpi.py $deamon_path
-		echo "listener script copied to $deamon_path"
+		sudo cp ./install/resetpi.py $daemon_path
+		echo "listener script copied to $daemon_path"
 		
-		sudo chown root:root $deamon_path
-		sudo chmod +x $deamon_path
+		sudo chown root:root $daemon_path
+		sudo chmod +x $daemon_path
 		echo "permissions set"
 		
-		awk '/exit 0/{print "$deamon_path"}1' /etc/rc.local > /etc/rc.local
-		
-		
-		
+		# write to rc.local
+		if grep -Fq "$daemon_path" /etc/rc.local
+		then
+			echo "already runs at startup..."
+		else
+			sudo sed -i -e '$i \/etc/resetpi.py \n' /etc/rc.local
+			echo "Config updated"
+		fi
+			
+		# ask for reboot
 		while true; do
 			read -p "Reboot now? [y/N]" yn
 			case $yn in
