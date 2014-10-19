@@ -43,15 +43,15 @@ if [ "$?" == 0 ]
 			sudo sed -i -e '$i \/etc/resetpi.py &\n' /etc/rc.local
 			echo "Config updated"
 		fi
-			
+		sudo /etc/resetpi.py &			
 		# ask for reboot
-		while true; do
-			read -p "Reboot now? [y/N]" yn
-			case $yn in
-			[Yy]* ) sudo reboot;exit;;
-			* ) exit ;;
-			esac
-		done
+	#	while true; do
+	#		read -p "Reboot now? [y/N]" yn
+	#		case $yn in
+	#		[Yy]* ) sudo reboot;exit;;
+	#		* ) exit ;;
+	#		esac
+	#	done
 
 	else
 		echo "no such gpio: $listen_at_pin"
