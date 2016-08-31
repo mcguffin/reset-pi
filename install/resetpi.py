@@ -6,7 +6,7 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Reset-Button
-# Description:       Survey to reset Button state and reboot or shutdown system.
+# Description:       Check reset button state and reboot / shutdown system
 ### END INIT INFO
 
 import RPi.GPIO as GPIO
