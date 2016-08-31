@@ -1,4 +1,13 @@
 #!/usr/bin/python
+### BEGIN INIT INFO
+# Provides:          resetpi
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Reset-Button
+# Description:       Survey to reset Button state and reboot or shutdown system.
+### END INIT INFO
 
 import RPi.GPIO as GPIO
 from datetime import datetime
